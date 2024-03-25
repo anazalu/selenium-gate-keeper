@@ -1,0 +1,11 @@
+<!-- testng.xml -->
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SeleniumTestSuite">
+    <test name="ExternalSiteTest">
+        <classes>
+            <class name="com.testdevlab.MyTestClass"/>
+            <!-- Add more test classes if needed -->
+        </classes>
+    </test>
+</suite>
