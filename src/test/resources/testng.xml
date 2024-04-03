@@ -4,7 +4,7 @@
 <suite name="SeleniumTestSuite">
     <test name="ExternalSiteTest">
         <classes>
-            <class name="com.testdevlab.MyTestClass"/>
+            <class name="com.example.MyTestClass"/>
             <!-- Add more test classes if needed -->
         </classes>
     </test>

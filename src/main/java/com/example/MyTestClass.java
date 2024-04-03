@@ -1,4 +1,4 @@
-package com.testdevlab;
+package com.example;
 
 //import org.openqa.selenium.By;
 //import org.openqa.selenium.Keys;
