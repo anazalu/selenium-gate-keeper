@@ -21,13 +21,13 @@ public class MyTestClass {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
-        driver.get("https://edruva.lv/sports/");
+        driver.get("https://magento.softwaretestingboard.com/");
     }
 
     @Test
     public void testTitle() {
         String actualTitle = driver.getTitle();
-        String expectedTitle = "Sports - eDruva.lv";
+        String expectedTitle = "Home Page";
         Assert.assertEquals(actualTitle, expectedTitle, "Title mismatch");
     }
 
