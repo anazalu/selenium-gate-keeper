@@ -3,9 +3,9 @@ package com.example.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import com.example.base.BaseTest;
+import com.example.util.DriverSetup;
 
-public class InitialTest extends BaseTest {
+public class pageTitleTest extends DriverSetup {
 
     @Test
     public void testTitle() {
