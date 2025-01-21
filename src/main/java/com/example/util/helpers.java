@@ -1,5 +1,5 @@
 package com.example.util;
 
-public class helpers {
+public class Helpers {
     
 }

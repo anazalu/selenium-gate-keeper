@@ -16,10 +16,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverSetup {
     public static WebDriver driver = null;
-    public WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-    protected static HomePage homePage;
-    
+    public static WebDriverWait wait = null;
+    public static HomePage homePage;
+        
         @BeforeAll
         public static void setUp() {
             WebDriverManager.chromedriver().setup();
@@ -28,14 +27,16 @@ public class DriverSetup {
             driver = new ChromeDriver(options);
             driver.manage().window().maximize();
             driver.get("https://magento.softwaretestingboard.com/");
+            
+            wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     
-            homePage = new HomePage(driver);
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        if (driver != null) {
-            driver.quit();
+            homePage = new HomePage(driver, wait);
         }
-    }    
+
+        @AfterAll
+        public static void tearDown() {
+            if (driver != null) {
+                driver.quit();
+            }
+        }    
 }
