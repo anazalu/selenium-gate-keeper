@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.example.pages.HomePage;
+import com.example.pages.SignInPage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -18,6 +19,7 @@ public class DriverSetup {
     public static WebDriver driver = null;
     public static WebDriverWait wait = null;
     public static HomePage homePage;
+    public static SignInPage signInPage;
         
         @BeforeAll
         public static void setUp() {
@@ -31,6 +33,7 @@ public class DriverSetup {
             wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     
             homePage = new HomePage(driver, wait);
+            signInPage = new SignInPage(driver, wait);
         }
 
         @AfterAll

@@ -14,5 +14,6 @@ public class SignInTest extends DriverSetup {
         homePage.clickSignInBtn();
         assertTrue(true);
         assertFalse(false);
+        assertTrue(signInPage.isDisplayed());
     }
 }
