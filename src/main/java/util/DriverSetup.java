@@ -1,4 +1,4 @@
-package com.example.util;
+package util;
 
 import java.time.Duration;
 
@@ -10,14 +10,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.example.pages.HomePage;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.HomePage;
+import pages.SignInPage;
 
 public class DriverSetup {
     public static WebDriver driver = null;
     public static WebDriverWait wait = null;
     public static HomePage homePage;
+    public static SignInPage signInPage;
         
         @BeforeAll
         public static void setUp() {
@@ -26,11 +27,14 @@ public class DriverSetup {
             // options.addArguments("--headless");
             driver = new ChromeDriver(options);
             driver.manage().window().maximize();
-            driver.get("https://magento.softwaretestingboard.com/");
+            // driver.get("https://magento.softwaretestingboard.com/");
+            driver.get("https://practicesoftwaretesting.com/");
+
             
             wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     
             homePage = new HomePage(driver, wait);
+            signInPage = new SignInPage(driver, wait);
         }
 
         @AfterAll

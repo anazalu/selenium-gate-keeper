@@ -1,4 +1,4 @@
-package com.example.util;
+package util;
 
 public class Helpers {
     

@@ -1,4 +1,4 @@
-package com.example.pages;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +13,8 @@ public class HomePage {
     private WebDriverWait wait;
 
     @FindBy
-    private By signInBtnBy = By.xpath("//a[contains(text(),'Sign In')]");
+    // private By signInBtnBy = By.xpath("//a[contains(text(),'Sign In')]");
+    private By signInBtnBy = By.xpath("//a[contains(text(),'Sign in')]");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
