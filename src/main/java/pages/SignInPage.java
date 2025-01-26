@@ -1,4 +1,4 @@
-package com.example.pages;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +13,8 @@ public class SignInPage {
     private WebDriverWait wait;
 
     @FindBy
-    private By registerBtnBy = By.cssSelector("a.action.create.primary");
+    // private By registerBtnBy = By.cssSelector("a.action.create.primary");
+    private By registerBtnBy = By.xpath("//a[@aria-label='Register your account']");
 
     public SignInPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
