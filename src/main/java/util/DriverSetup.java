@@ -13,34 +13,35 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.HomePage;
 import pages.SignInPage;
+import pages.ProductDetailPage;
 
 public class DriverSetup {
     public static WebDriver driver = null;
     public static WebDriverWait wait = null;
     public static HomePage homePage;
     public static SignInPage signInPage;
-        
-        @BeforeAll
-        public static void setUp() {
-            WebDriverManager.chromedriver().setup();
-            ChromeOptions options = new ChromeOptions();
-            // options.addArguments("--headless");
-            driver = new ChromeDriver(options);
-            driver.manage().window().maximize();
-            // driver.get("https://magento.softwaretestingboard.com/");
-            driver.get("https://practicesoftwaretesting.com/");
-
-            
-            wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    public static ProductDetailPage productDetailPage;
     
-            homePage = new HomePage(driver, wait);
-            signInPage = new SignInPage(driver, wait);
-        }
+    @BeforeAll
+    public static void setUp() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        // options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.get("https://practicesoftwaretesting.com/");
+        
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        @AfterAll
-        public static void tearDown() {
-            if (driver != null) {
-                driver.quit();
-            }
-        }    
+        homePage = new HomePage(driver, wait);
+        signInPage = new SignInPage(driver, wait);
+        productDetailPage = new ProductDetailPage(driver, wait);
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 }
