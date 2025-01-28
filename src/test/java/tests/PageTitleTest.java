@@ -12,7 +12,12 @@ public class PageTitleTest extends DriverSetup {
     public void testTitle() {
         String actualTitle = driver.getTitle();
         String expectedTitle = "Practice Software Testing";
-        // assertEquals(expectedTitle, actualTitle);
         assertTrue(actualTitle.contains(expectedTitle));
+        homePage.clickProductOne();
+        assertTrue(productDetailPage.isDisplayed());
+        productDetailPage.clickAddToCartBtn();
+        productDetailPage.messageDisplayed();
+        // WIP
+        // productDetailPage.clickGoToCartBtn();
     }
 }

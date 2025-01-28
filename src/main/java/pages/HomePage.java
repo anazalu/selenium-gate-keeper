@@ -13,8 +13,11 @@ public class HomePage {
     private WebDriverWait wait;
 
     @FindBy
-    // private By signInBtnBy = By.xpath("//a[contains(text(),'Sign In')]");
     private By signInBtnBy = By.xpath("//a[contains(text(),'Sign in')]");
+
+    @FindBy
+    // private By productsListBy = By.xpath("//*[@class='card']");
+    private By productsListBy = By.xpath("//*[@class='card'][1]");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -25,5 +28,11 @@ public class HomePage {
     public void clickSignInBtn() {
         WebElement signInBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(signInBtnBy));
         signInBtn.click();
-    }    
+    }
+
+    public void clickProductOne() {
+        // ArrayList<WebElement> productsList = new ArrayList<WebElement>();
+        WebElement productOne = wait.until(ExpectedConditions.visibilityOfElementLocated(productsListBy));
+        productOne.click();
+    }
 }
