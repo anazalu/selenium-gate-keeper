@@ -43,6 +43,7 @@ public class ProductDetailPage {
     }
 
     public void clickGoToCartBtn() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(messageBy));
         WebElement goToCartBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(goToCartBtnBy));
         goToCartBtn.click();
     }

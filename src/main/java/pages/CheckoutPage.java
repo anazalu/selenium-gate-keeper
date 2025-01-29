@@ -8,27 +8,27 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SignInPage {
+public class CheckoutPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
     @FindBy
-    // private By registerBtnBy = By.cssSelector("a.action.create.primary");
-    private By registerBtnBy = By.xpath("//a[@aria-label='Register your account']");
+    private By removeItemBy = By.xpath("//*[@class='btn btn-danger']");
+    private By proceedBy = By.xpath("//button[contains(@data-test, 'proceed-1')]");
 
-    public SignInPage(WebDriver driver, WebDriverWait wait) {
+    public CheckoutPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
     public boolean isDisplayed() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(registerBtnBy));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeItemBy));
         return true;
     }
 
-    public void clickRegisterBtn() {
-        WebElement registerBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(registerBtnBy));
-        registerBtn.click();
+    public void clickProceedBtn() {
+        WebElement proceedBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(proceedBy));
+        proceedBtn.click();
     }    
 }

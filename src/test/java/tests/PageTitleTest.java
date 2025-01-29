@@ -12,12 +12,13 @@ public class PageTitleTest extends DriverSetup {
     public void testTitle() {
         String actualTitle = driver.getTitle();
         String expectedTitle = "Practice Software Testing";
-        assertTrue(actualTitle.contains(expectedTitle));
+        assertTrue(actualTitle.contains(expectedTitle), "Title mismatch.");
         homePage.clickProductOne();
-        assertTrue(productDetailPage.isDisplayed());
+        assertTrue(productDetailPage.isDisplayed(), "PDP failed to display.");
         productDetailPage.clickAddToCartBtn();
         productDetailPage.messageDisplayed();
-        // WIP
-        // productDetailPage.clickGoToCartBtn();
+        productDetailPage.clickGoToCartBtn();
+        assertTrue(checkoutPage.isDisplayed(), "Checkout page not displayed.");
+        checkoutPage.clickProceedBtn();
     }
 }
