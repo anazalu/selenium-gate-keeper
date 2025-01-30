@@ -17,7 +17,7 @@ public class HomePage {
 
     @FindBy
     // private By productsListBy = By.xpath("//*[@class='card']");
-    private By productsListBy = By.xpath("//*[@class='card'][1]");
+    private By productOneBy = By.xpath("//*[@class='card'][1]");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -32,7 +32,7 @@ public class HomePage {
 
     public void clickProductOne() {
         // ArrayList<WebElement> productsList = new ArrayList<WebElement>();
-        WebElement productOne = wait.until(ExpectedConditions.visibilityOfElementLocated(productsListBy));
+        WebElement productOne = wait.until(ExpectedConditions.visibilityOfElementLocated(productOneBy));
         productOne.click();
     }
 }

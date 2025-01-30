@@ -21,6 +21,13 @@ public class ProductDetailPage {
     @FindBy
     private By messageBy = By.id("toast-container");
 
+    @FindBy
+    private By relatedItemOneBy = By.xpath("//*[@class='card'][1]");
+
+    // @FindBy(xpath = "//h1[contains(@data-test, 'product-name')]") WebElement nameBy;
+    @FindBy
+    private By nameBy = By.xpath("//h1[contains(@data-test, 'product-name')]");
+
     public ProductDetailPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
@@ -46,5 +53,14 @@ public class ProductDetailPage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(messageBy));
         WebElement goToCartBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(goToCartBtnBy));
         goToCartBtn.click();
+    }
+
+    public void addRelatedItem() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(relatedItemOneBy)).click();
+    }
+
+    public String getItemName() {
+        String itemName = wait.until(ExpectedConditions.visibilityOfElementLocated(nameBy)).getText();
+        return itemName;
     }
 }
