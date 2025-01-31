@@ -12,21 +12,13 @@ public class ProductDetailPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    @FindBy
     private By addToCartBtnBy = By.xpath("//button[@id='btn-add-to-cart']");
-
-    @FindBy
     private By goToCartBtnBy = By.xpath("//a[@aria-label='cart']");
-
-    @FindBy
     private By messageBy = By.id("toast-container");
-
-    @FindBy
+    // todo - select item No randomly
     private By relatedItemOneBy = By.xpath("//*[@class='card'][1]");
-
-    // @FindBy(xpath = "//h1[contains(@data-test, 'product-name')]") WebElement nameBy;
-    @FindBy
     private By nameBy = By.xpath("//h1[contains(@data-test, 'product-name')]");
+    private By priceBy = By.xpath("//span[@aria-label='unit-price']");
 
     public ProductDetailPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -37,6 +29,10 @@ public class ProductDetailPage {
     public boolean isDisplayed() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(addToCartBtnBy));
         return true;
+    }
+
+    public String getPrice() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(priceBy)).getText();
     }
 
     public void clickAddToCartBtn() {
