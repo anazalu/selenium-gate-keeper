@@ -1,5 +1,6 @@
 package pages;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,12 @@ public class HomePage {
     private WebDriverWait wait;
 
     private By signInBtnBy = By.xpath("//a[contains(text(),'Sign in')]");
-    private By productListBy = By.xpath("//*[@class='card']");
+    private By productListBy = By.xpath("//*[@class='card-footer']");
     private By priceListBy = By.xpath("//span[@data-test='product-price']");
+    // private By outListBy = By.xpath("//span[@data-test='out-of-stock']");
+    // finds parent of outOfStockSpan: //div[span[@data-test='out-of-stock']]
+    private By sortBy = By.xpath("//form//select");
+    private By sortLowToHighBy = By.xpath("//form//select//option[@value='price,asc']");
 
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
@@ -48,13 +53,10 @@ public class HomePage {
         return elements.get(itemWhich).getText();
     }
 
-    public ArrayList<String> getPricesList() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(priceListBy));
-        List<WebElement> elements = driver.findElements(priceListBy);
-        ArrayList<String> items = new ArrayList<String>();
-        for (int i = 0; i < elements.size(); i++) {
-            items.add(elements.get(i).getText());
-        }
-        return items;
+    public void sortLowToHigh() throws InterruptedException {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(sortBy)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(sortLowToHighBy)).click();
+        Thread.sleep(1000);
     }
+
 }
