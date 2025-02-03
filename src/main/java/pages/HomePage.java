@@ -48,15 +48,16 @@ public class HomePage {
             throw new RuntimeException("No products found."); 
         }
 
-        String num = String.valueOf(itemWhich + 1);
-        By outOfStockBy = By.xpath("//a[@class='card'][" + num + "]//span[contains(@data-test, 'out')]");
+        String numStr = String.valueOf(itemWhich + 1);
+        By outOfStockBy = By.xpath("//a[@class='card'][" + numStr + "]//span[contains(@data-test, 'out')]");
 
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(outOfStockBy));
             itemWhich++;
+            System.out.println(">>>>> Skip to next.");
         }
         catch(Exception e) {
-            System.out.println("Item is available.");
+            System.out.println(">>>>> Item is available.");
         }
 
         if (itemWhich >= prices.size() - 1) {
@@ -64,11 +65,12 @@ public class HomePage {
         }
 
         String price = prices.get(itemWhich).getText();
+        System.out.println(">>>>> Price from Homepage " + price);
         prices.get(itemWhich).click();
         return price;
     }
 
-    public void sort(Sorting sortHow) throws InterruptedException {
+    public void sortItems(Sorting sortHow) throws InterruptedException {
         wait.until(ExpectedConditions.visibilityOfElementLocated(sortBy)).click();
         if (sortHow.equals(Sorting.FROMHIGH)) {
             wait.until(ExpectedConditions.visibilityOfElementLocated(sortHighToLowBy)).click();
@@ -77,7 +79,7 @@ public class HomePage {
         } else {
             throw new IllegalArgumentException("No such sorting option.");
         }
+        // TODO: wait until element change
         Thread.sleep(1000);
     }
-
 }
