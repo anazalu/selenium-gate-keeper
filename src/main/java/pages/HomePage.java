@@ -3,6 +3,7 @@ package pages;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -43,15 +44,25 @@ public class HomePage {
     public String clickAndGetPrice(int itemWhich) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(priceListBy));
         List<WebElement> prices = driver.findElements(priceListBy);
-        List<WebElement> cards = driver.findElements(productListBy);
         if (prices.size() == 0) {
             throw new RuntimeException("No products found."); 
         }
-        // if (cards.get(itemWhich).getDomProperty("data-test").contains("out")) {
-        //     itemWhich++;
-        //     if (itemWhich >= prices.size()) 
-        //         throw new RuntimeException("All products out of stock."); 
-        // }
+
+        String num = String.valueOf(itemWhich + 1);
+        By outOfStockBy = By.xpath("//a[@class='card'][" + num + "]//span[contains(@data-test, 'out')]");
+
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(outOfStockBy));
+            itemWhich++;
+        }
+        catch(Exception e) {
+            System.out.println("Item is available.");
+        }
+
+        if (itemWhich >= prices.size() - 1) {
+            throw new RuntimeException("All relevant products out of stock."); 
+        }
+
         String price = prices.get(itemWhich).getText();
         prices.get(itemWhich).click();
         return price;
