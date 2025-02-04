@@ -11,16 +11,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.CheckoutPage;
 import pages.HomePage;
-import pages.SignInPage;
+import pages.LoginPage;
 import pages.ProductDetailPage;
 
 public class DriverSetup {
     public static WebDriver driver = null;
     public static WebDriverWait wait = null;
+    
     public static HomePage homePage;
-    public static SignInPage signInPage;
+    public static LoginPage loginPage;
     public static ProductDetailPage productDetailPage;
+    public static CheckoutPage checkoutPage;
     
     @BeforeAll
     public static void setUp() {
@@ -34,8 +37,9 @@ public class DriverSetup {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         homePage = new HomePage(driver, wait);
-        signInPage = new SignInPage(driver, wait);
+        loginPage = new LoginPage(driver, wait);
         productDetailPage = new ProductDetailPage(driver, wait);
+        checkoutPage = new CheckoutPage(driver, wait);
     }
 
     @AfterAll

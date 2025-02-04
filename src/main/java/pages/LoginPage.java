@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SignInPage {
+public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -16,7 +16,7 @@ public class SignInPage {
     // private By registerBtnBy = By.cssSelector("a.action.create.primary");
     private By registerBtnBy = By.xpath("//a[@aria-label='Register your account']");
 
-    public SignInPage(WebDriver driver, WebDriverWait wait) {
+    public LoginPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
