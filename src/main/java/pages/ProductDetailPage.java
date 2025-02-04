@@ -14,7 +14,7 @@ public class ProductDetailPage {
     private By addToCartBtnBy = By.xpath("//button[@id='btn-add-to-cart']");
     private By goToCartBtnBy = By.xpath("//a[@aria-label='cart']");
     private By messageBy = By.id("toast-container");
-    // todo - select item No randomly
+    // TODO: select item No randomly
     private By relatedItemOneBy = By.xpath("//*[@class='card'][1]");
     private By nameBy = By.xpath("//h1[contains(@data-test, 'product-name')]");
     private By priceBy = By.xpath("//span[@aria-label='unit-price']");

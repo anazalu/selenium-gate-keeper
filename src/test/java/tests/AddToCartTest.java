@@ -1,5 +1,6 @@
 package tests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -16,13 +17,13 @@ public class AddToCartTest extends DriverSetup {
         String actualTitle = driver.getTitle();
         String expectedTitle = "Practice Software Testing";
         assertTrue(actualTitle.contains(expectedTitle), "Title mismatch.");
-        homePage.filterFor(Filtering.PLIERS);
+        homePage.filterFor(Filtering.CHISELS);
         homePage.sortItems(Sorting.FROMLOW);
         String homePagePrice = homePage.clickAndGetPrice(FIRST);
         assertTrue(productDetailPage.isDisplayed(), "PDP failed to display.");
         String pdpPrice = productDetailPage.getPrice();
         System.out.println("Price: " + homePagePrice);
-        assertTrue(homePagePrice.equals("$" + pdpPrice), "Price mismatch " + pdpPrice + " " + homePagePrice);
+        assertEquals(homePagePrice, "$" + pdpPrice, "Price mismatch " + pdpPrice + " " + homePagePrice);
         productDetailPage.clickAddToCartBtn();
         productDetailPage.messageDisplayed();
         productDetailPage.addRelatedItem();

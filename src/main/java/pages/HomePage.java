@@ -1,9 +1,6 @@
 package pages;
 
-import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +17,6 @@ public class HomePage {
     private WebDriverWait wait;
 
     private By signInBtnBy = By.xpath("//a[contains(text(),'Sign in')]");
-    private By productListBy = By.xpath("//*[@class='card-footer']");
     private By priceListBy = By.xpath("//span[@data-test='product-price']");
     private By sortBy = By.xpath("//form//select");
     private By sortLowToHighBy = By.xpath("//form//select//option[@value='price,asc']");
@@ -49,35 +45,25 @@ public class HomePage {
             By outOfStockBy = By.xpath("//a[@class='card'][" + numStr + "]//span[contains(@data-test, 'out')]");
             if (driver.findElements(outOfStockBy).size() > 0) {
                 itemWhich++;
-                System.out.println(">>>>> Skip to next.");
+                System.out.println(">>>>> Skip to next item.");
             } else {
                 itemAvailable = true;
             }
-            if (itemWhich >= prices.size() - 1) {
-                throw new RuntimeException("All relevant products out of stock."); 
+            if (itemWhich + 1 >= prices.size()) {
+                throw new RuntimeException("All relevant products are out of stock."); 
             }
         }
-
-        // try {
-        //     wait.until(ExpectedConditions.visibilityOfElementLocated(outOfStockBy));
-        //     itemWhich++;
-        //     System.out.println(">>>>> Skip to next.");
-        // }
-        // catch(Exception e) {
-        //     System.out.println(">>>>> Item is available.");
-        // }
-
         String price = prices.get(itemWhich).getText();
         System.out.println(">>>>> Price from Homepage " + price);
         prices.get(itemWhich).click();
         return price;
     }
 
-    public void sortItems(Sorting sortHow) throws InterruptedException {
+    public void sortItems(Sorting sortEnum) throws InterruptedException {
         wait.until(ExpectedConditions.visibilityOfElementLocated(sortBy)).click();
-        if (sortHow.equals(Sorting.FROMHIGH)) {
+        if (sortEnum.equals(Sorting.FROMHIGH)) {
             wait.until(ExpectedConditions.visibilityOfElementLocated(sortHighToLowBy)).click();
-        } else if (sortHow.equals(Sorting.FROMLOW)) {
+        } else if (sortEnum.equals(Sorting.FROMLOW)) {
             wait.until(ExpectedConditions.visibilityOfElementLocated(sortLowToHighBy)).click();
         } else {
             throw new IllegalArgumentException("No such sorting option.");
@@ -101,7 +87,6 @@ public class HomePage {
             default:
                 break;
         }
-
         By filterForBy = By.xpath("//label[contains(text(), '" + filterStr + "')]");
         wait.until(ExpectedConditions.visibilityOfElementLocated(filterForBy)).click();
         Thread.sleep(1000);
