@@ -17,8 +17,9 @@ public class AddToCartTest extends DriverSetup {
         String actualTitle = driver.getTitle();
         String expectedTitle = "Practice Software Testing";
         assertTrue(actualTitle.contains(expectedTitle), "Title mismatch.");
-        homePage.filterFor(Filtering.CHISELS);
-        homePage.sortItems(Sorting.FROMLOW);
+        homePage.setSlider(1, 1);
+        homePage.filterFor(Filtering.HAND_TOOLS);
+        homePage.sortItems(Sorting.FROMHIGH);
         String homePagePrice = homePage.clickAndGetPrice(FIRST);
         assertTrue(productDetailPage.isDisplayed(), "PDP failed to display.");
         String pdpPrice = productDetailPage.getPrice();

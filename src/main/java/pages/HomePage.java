@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,22 +16,43 @@ import util.Helpers.Sorting;
 public class HomePage {
     private WebDriver driver;
     private WebDriverWait wait;
+    private Actions actions;
 
     private By signInBtnBy = By.xpath("//a[contains(text(),'Sign in')]");
     private By priceListBy = By.xpath("//span[@data-test='product-price']");
     private By sortBy = By.xpath("//form//select");
     private By sortLowToHighBy = By.xpath("//form//select//option[@value='price,asc']");
     private By sortHighToLowBy = By.xpath("//form//select//option[@value='price,desc']");
+    private By minHandleBy = By.className("ngx-slider-pointer-min");
+    private By maxHandleBy = By.className("ngx-slider-pointer-max");
+    private By minValueNowBy = By.className("ngx-slider-model-value");
+    private By maxValueNowBy = By.className("ngx-slider-model-high");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
+        this.actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
 
     public void clickSignInBtn() {
         WebElement signInBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(signInBtnBy));
         signInBtn.click();
+    }
+
+    public void setSlider(int priceMin, int PriceMax) throws InterruptedException {
+        WebElement minHandle = wait.until(ExpectedConditions.visibilityOfElementLocated(minHandleBy));
+        WebElement maxHandle = wait.until(ExpectedConditions.visibilityOfElementLocated(maxHandleBy));
+        actions.clickAndHold(minHandle).moveByOffset(200, 0);
+        actions.clickAndHold(maxHandle).moveByOffset(-60, 0);
+        Thread.sleep(1000);
+
+        WebElement minValueNow = wait.until(ExpectedConditions.visibilityOfElementLocated(minValueNowBy));
+        WebElement maxValueNow = wait.until(ExpectedConditions.visibilityOfElementLocated(maxValueNowBy));
+        String minValue = minValueNow.getText();
+        String maxValue = maxValueNow.getText();
+        System.out.println(">>>>> Min Value: " + minValue);
+        System.out.println(">>>>> Max Value: " + maxValue);
     }
 
     public String clickAndGetPrice(int itemWhich) {
