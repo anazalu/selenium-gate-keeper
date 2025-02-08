@@ -27,6 +27,7 @@ public class HomePage {
     private By maxHandleBy = By.className("ngx-slider-pointer-max");
     private By minValueNowBy = By.className("ngx-slider-model-value");
     private By maxValueNowBy = By.className("ngx-slider-model-high");
+    private By sliderSizeBy = By.className("ngx-slider");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -38,6 +39,12 @@ public class HomePage {
     public void clickSignInBtn() {
         WebElement signInBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(signInBtnBy));
         signInBtn.click();
+    }
+
+    public void getSliderWidth() {
+        WebElement sliderElement = wait.until(ExpectedConditions.visibilityOfElementLocated(sliderSizeBy));
+        int sliderWidth = sliderElement.getSize().getWidth();
+        System.out.println(">>>>> Width: " + sliderWidth);
     }
 
     public void setSlider(int priceMin, int PriceMax) throws InterruptedException {

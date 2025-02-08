@@ -20,10 +20,12 @@ public class AddToCartTest extends DriverSetup {
         homePage.setSlider(1, 1);
         homePage.filterFor(Filtering.HAND_TOOLS);
         homePage.sortItems(Sorting.FROMHIGH);
+        // TODO: asseert prices are sorted
+        homePage.getSliderWidth();
         String homePagePrice = homePage.clickAndGetPrice(FIRST);
         assertTrue(productDetailPage.isDisplayed(), "PDP failed to display.");
         String pdpPrice = productDetailPage.getPrice();
-        System.out.println("Price: " + homePagePrice);
+        System.out.println(">>>>> Price from PD Page: " + homePagePrice);
         assertEquals(homePagePrice, "$" + pdpPrice, "Price mismatch " + pdpPrice + " " + homePagePrice);
         productDetailPage.clickAddToCartBtn();
         productDetailPage.messageDisplayed();
