@@ -23,6 +23,7 @@ public class HomePage {
     private By sortBy = By.xpath("//form//select");
     private By sortLowToHighBy = By.xpath("//form//select//option[@value='price,asc']");
     private By sortHighToLowBy = By.xpath("//form//select//option[@value='price,desc']");
+    private By sliderCeilBy = By.className("ngx-slider-ceil");
     private By minHandleBy = By.className("ngx-slider-pointer-min");
     private By maxHandleBy = By.className("ngx-slider-pointer-max");
     private By minValueNowBy = By.className("ngx-slider-model-value");
@@ -48,16 +49,28 @@ public class HomePage {
     }
 
     public void setSlider(int priceMin, int PriceMax) throws InterruptedException {
+        WebElement sliderElement = wait.until(ExpectedConditions.visibilityOfElementLocated(sliderSizeBy));
+        int sliderWidth = sliderElement.getSize().getWidth();
+        System.out.println(">>>>> Width: " + sliderWidth);
         WebElement minHandle = wait.until(ExpectedConditions.visibilityOfElementLocated(minHandleBy));
         WebElement maxHandle = wait.until(ExpectedConditions.visibilityOfElementLocated(maxHandleBy));
-        actions.clickAndHold(minHandle).moveByOffset(200, 0);
-        actions.clickAndHold(maxHandle).moveByOffset(-60, 0);
-        Thread.sleep(1000);
-
         WebElement minValueNow = wait.until(ExpectedConditions.visibilityOfElementLocated(minValueNowBy));
         WebElement maxValueNow = wait.until(ExpectedConditions.visibilityOfElementLocated(maxValueNowBy));
+        String sliderCeil = driver.findElement(sliderCeilBy).getText();
+        System.out.println(">>>>> Max limit: " + sliderCeil);
         String minValue = minValueNow.getText();
         String maxValue = maxValueNow.getText();
+        System.out.println(">>>>> Min Value: " + minValue);
+        System.out.println(">>>>> Max Value: " + maxValue);
+        float coeff = Integer.valueOf(sliderCeil)/Integer.valueOf(sliderWidth);
+        actions.clickAndHold(minHandle).moveByOffset(10, 0).release().perform();;
+        actions.clickAndHold(maxHandle).moveByOffset(100, 0).release().perform();;
+        Thread.sleep(1000);
+        // wait.until(ExpectedConditions.textToBePresentInElement(minValueNow, String.valueOf(PriceMax)));
+        minValueNow = wait.until(ExpectedConditions.visibilityOfElementLocated(minValueNowBy));
+        maxValueNow = wait.until(ExpectedConditions.visibilityOfElementLocated(maxValueNowBy));
+        minValue = minValueNow.getText();
+        maxValue = maxValueNow.getText();
         System.out.println(">>>>> Min Value: " + minValue);
         System.out.println(">>>>> Max Value: " + maxValue);
     }
