@@ -14,21 +14,21 @@ import util.Helpers.Filtering;
 import util.Helpers.Sorting;
 
 public class HomePage {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private Actions actions;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
+    private final Actions actions;
 
-    private By signInBtnBy = By.xpath("//a[contains(text(),'Sign in')]");
-    private By priceListBy = By.xpath("//span[@data-test='product-price']");
-    private By sortBy = By.xpath("//form//select");
-    private By sortLowToHighBy = By.xpath("//form//select//option[@value='price,asc']");
-    private By sortHighToLowBy = By.xpath("//form//select//option[@value='price,desc']");
-    private By sliderCeilBy = By.className("ngx-slider-ceil");
-    private By minHandleBy = By.className("ngx-slider-pointer-min");
-    private By maxHandleBy = By.className("ngx-slider-pointer-max");
-    private By minValueNowBy = By.className("ngx-slider-model-value");
-    private By maxValueNowBy = By.className("ngx-slider-model-high");
-    private By sliderSizeBy = By.className("ngx-slider");
+    private final By signInBtnBy = By.xpath("//a[contains(text(),'Sign in')]");
+    private final By priceListBy = By.xpath("//span[@data-test='product-price']");
+    private final By sortBy = By.xpath("//form//select");
+    private final By sortLowToHighBy = By.xpath("//form//select//option[@value='price,asc']");
+    private final By sortHighToLowBy = By.xpath("//form//select//option[@value='price,desc']");
+    private final By sliderCeilBy = By.className("ngx-slider-ceil");
+    private final By minHandleBy = By.className("ngx-slider-pointer-min");
+    private final By maxHandleBy = By.className("ngx-slider-pointer-max");
+    private final By minValueNowBy = By.className("ngx-slider-model-value");
+    private final By maxValueNowBy = By.className("ngx-slider-model-high");
+    private final By sliderSizeBy = By.className("ngx-slider");
 
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -42,13 +42,7 @@ public class HomePage {
         signInBtn.click();
     }
 
-    public void getSliderWidth() {
-        WebElement sliderElement = wait.until(ExpectedConditions.visibilityOfElementLocated(sliderSizeBy));
-        int sliderWidth = sliderElement.getSize().getWidth();
-        System.out.println(">>>>> Width: " + sliderWidth);
-    }
-
-    public void setSlider(int priceMin, int PriceMax) throws InterruptedException {
+    public void setSlider(int priceMin, int priceMax) throws InterruptedException {
         WebElement sliderElement = wait.until(ExpectedConditions.visibilityOfElementLocated(sliderSizeBy));
         int sliderWidth = sliderElement.getSize().getWidth();
         System.out.println(">>>>> Width: " + sliderWidth);
@@ -62,9 +56,19 @@ public class HomePage {
         String maxValue = maxValueNow.getText();
         System.out.println(">>>>> Min Value: " + minValue);
         System.out.println(">>>>> Max Value: " + maxValue);
-        float coeff = Integer.valueOf(sliderCeil)/Integer.valueOf(sliderWidth);
-        actions.clickAndHold(minHandle).moveByOffset(10, 0).release().perform();;
-        actions.clickAndHold(maxHandle).moveByOffset(100, 0).release().perform();;
+        float coeff = Float.valueOf(sliderWidth)/Float.valueOf(sliderCeil);
+        System.out.println(">>>>> Coeff: " + coeff);
+        // 50 px = 36 $
+        int minUSD = - Integer.valueOf(minValue) + priceMin;
+        int maxUSD = - Integer.valueOf(maxValue) + priceMax;
+        System.out.println(">>>>> Min diff USD: " + minUSD);
+        System.out.println(">>>>> Max diff USD: " + maxUSD);
+        float minOffset = (float) minUSD * coeff;
+        System.out.println(">>>>> minOffset: " + minOffset);
+        float maxOffset = (float) maxUSD * coeff;
+        System.out.println(">>>>> maxOffset: " + maxOffset);
+        actions.clickAndHold(minHandle).moveByOffset((int)minOffset, 0).release().perform();
+        actions.clickAndHold(maxHandle).moveByOffset((int)maxOffset, 0).release().perform();
         Thread.sleep(1000);
         // wait.until(ExpectedConditions.textToBePresentInElement(minValueNow, String.valueOf(PriceMax)));
         minValueNow = wait.until(ExpectedConditions.visibilityOfElementLocated(minValueNowBy));
@@ -134,3 +138,4 @@ public class HomePage {
         Thread.sleep(1000);
     }
 }
+    
