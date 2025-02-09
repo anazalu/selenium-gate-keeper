@@ -10,19 +10,24 @@ import util.Helpers.Filtering;
 import util.Helpers.Sorting;
 
 public class AddToCartTest extends DriverSetup {
-    public final int FIRST = 0;
+    public final int FIRST_ITEM = 0;
+    public final int LOW_PRICE = 10;
+    public final int HIGH_PRICE = 75;
 
     @Test
     public void testEntireFlow() throws InterruptedException {
         String actualTitle = driver.getTitle();
         String expectedTitle = "Practice Software Testing";
         assertTrue(actualTitle.contains(expectedTitle), "Title mismatch.");
-        homePage.filterFor(Filtering.CHISELS);
+        homePage.setSlider(LOW_PRICE, HIGH_PRICE);
+        
+        homePage.filterFor(Filtering.HAND_TOOLS);
         homePage.sortItems(Sorting.FROMLOW);
-        String homePagePrice = homePage.clickAndGetPrice(FIRST);
+        // TODO: assert prices are sorted
+        String homePagePrice = homePage.clickAndGetPrice(FIRST_ITEM);
         assertTrue(productDetailPage.isDisplayed(), "PDP failed to display.");
         String pdpPrice = productDetailPage.getPrice();
-        System.out.println("Price: " + homePagePrice);
+        System.out.println(">>>>> Price from PD Page: " + pdpPrice);
         assertEquals(homePagePrice, "$" + pdpPrice, "Price mismatch " + pdpPrice + " " + homePagePrice);
         productDetailPage.clickAddToCartBtn();
         productDetailPage.messageDisplayed();
