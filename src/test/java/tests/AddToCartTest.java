@@ -12,7 +12,7 @@ import util.Helpers.Sorting;
 public class AddToCartTest extends DriverSetup {
     public final int FIRST_ITEM = 0;
     public final int LOW_PRICE = 10;
-    public final int HIGH_PRICE = 75;
+    public final int HIGH_PRICE = 150;
 
     @Test
     public void testEntireFlow() throws InterruptedException {
