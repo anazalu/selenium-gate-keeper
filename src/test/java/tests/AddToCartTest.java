@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import util.DriverSetup;
 import util.Helpers.Filtering;
+import util.Helpers.Quantity;
 import util.Helpers.Sorting;
 
 public class AddToCartTest extends DriverSetup {
@@ -28,6 +29,7 @@ public class AddToCartTest extends DriverSetup {
         assertTrue(productDetailPage.isDisplayed(), "PDP failed to display.");
         String pdpPrice = productDetailPage.getPrice();
         System.out.println(">>>>> Price from PD Page: " + pdpPrice);
+        productDetailPage.changeAndGetQuantity(Quantity.INCREASE);
         assertEquals(homePagePrice, "$" + pdpPrice, "Price mismatch " + pdpPrice + " " + homePagePrice);
         productDetailPage.clickAddToCartBtn();
         productDetailPage.messageDisplayed();

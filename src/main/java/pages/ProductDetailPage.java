@@ -4,8 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import util.Helpers.Quantity;
 
 public class ProductDetailPage {
     private WebDriver driver;
@@ -14,6 +17,8 @@ public class ProductDetailPage {
     private By addToCartBtnBy = By.xpath("//button[@id='btn-add-to-cart']");
     private By goToCartBtnBy = By.xpath("//a[@aria-label='cart']");
     private By messageBy = By.id("toast-container");
+    private By quantityValueBy = By.id("quantity-input");
+    private By quantityIncreaseBy = By.id("btn-increase-quantity");
     // TODO: select item No randomly
     private By relatedItemOneBy = By.xpath("//*[@class='card'][1]");
     private By nameBy = By.xpath("//h1[contains(@data-test, 'product-name')]");
@@ -57,5 +62,15 @@ public class ProductDetailPage {
     public String getItemName() {
         String itemName = wait.until(ExpectedConditions.visibilityOfElementLocated(nameBy)).getText();
         return itemName;
+    }
+
+    public String changeAndGetQuantity(Quantity moreOrLess) {
+        String initialQuantity = wait.until(ExpectedConditions.visibilityOfElementLocated(quantityValueBy)).getDomProperty("value");
+        System.out.println(">>>> Initial Quantity: " + initialQuantity);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(quantityIncreaseBy)).click();
+        String finalQuantity = wait.until(ExpectedConditions.visibilityOfElementLocated(quantityValueBy)).getDomProperty("value");
+        // wait.until(ExpectedConditions.refreshed(driver.findElement(quantityValueBy)).getDomProperty("value"));
+        System.out.println(">>>> Final Quantity: " + finalQuantity);
+        return finalQuantity;
     }
 }
