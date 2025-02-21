@@ -46,7 +46,8 @@ public class ProductDetailPage {
     }
 
     public boolean messageDisplayed() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(messageBy));
+        // wait.until(ExpectedConditions.visibilityOfElementLocated(messageBy));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(messageBy));
         return true;
     }
 
@@ -57,11 +58,14 @@ public class ProductDetailPage {
     }
 
     public void addRelatedItem() {
+        String currentItemName = wait.until(ExpectedConditions.visibilityOfElementLocated(nameBy)).getText();
         wait.until(ExpectedConditions.visibilityOfElementLocated(relatedItemFirstBy)).click();
+        wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(nameBy, currentItemName)));
     }
 
     public String getItemName() {
         String itemName = wait.until(ExpectedConditions.visibilityOfElementLocated(nameBy)).getText();
+        System.out.println(">>>> Item name: " + itemName);
         return itemName;
     }
 

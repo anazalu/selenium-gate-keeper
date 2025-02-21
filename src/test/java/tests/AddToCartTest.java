@@ -21,31 +21,37 @@ public class AddToCartTest extends DriverSetup {
         String expectedTitle = "Practice Software Testing";
         assertTrue(actualTitle.contains(expectedTitle), "Title mismatch.");
         // homePage.setSlider(LOW_PRICE, HIGH_PRICE);
-        homePage.filterFor(Filtering.HAND_TOOLS);
+        homePage.filterFor(Filtering.PLIERS);
         homePage.sortItems(Sorting.FROMLOW);
         // TODO: assert prices are sorted
+
         String homePagePrice = homePage.clickAndGetPrice(FIRST_ITEM);
+
         assertTrue(productDetailPage.isDisplayed(), "PDP failed to display.");
         String pdpPrice = productDetailPage.getPrice();
         System.out.println(">>>>> Price from PD Page: " + pdpPrice);
         assertEquals(homePagePrice, "$" + pdpPrice, "Price mismatch " + pdpPrice + " " + homePagePrice);
         // first item
+        productDetailPage.getItemName();
         productDetailPage.clickAddToCartBtn();
         productDetailPage.messageDisplayed();
         productDetailPage.addRelatedItem();
         // second item
+        productDetailPage.getItemName();
         productDetailPage.changeAndGetQuantity(Quantity.INCREASE);
-        productDetailPage.messageDisplayed();
         productDetailPage.clickAddToCartBtn();
+        productDetailPage.messageDisplayed();
         productDetailPage.addRelatedItem();
         // third item
+        productDetailPage.getItemName();
         productDetailPage.changeAndGetQuantity(Quantity.DECREASE);
-        productDetailPage.messageDisplayed();
         productDetailPage.clickAddToCartBtn();
+        productDetailPage.messageDisplayed();
 
         productDetailPage.clickGoToCartBtn();
         assertTrue(checkoutPage.isDisplayed(), "Checkout page not displayed.");
         
+        checkoutPage.getItemsList();
         checkoutPage.getQuantities();
         checkoutPage.getTotalToPay();
         checkoutPage.clickProceedBtn();

@@ -45,7 +45,7 @@ public class CheckoutPage {
         for (int i = 0; i < elements.size(); i++) {
             items.add(elements.get(i).getText());
         }
-
+        System.out.println(">>>>> Items:" + items);
         return items;
     }
 
