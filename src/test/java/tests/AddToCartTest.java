@@ -12,7 +12,7 @@ import util.Helpers.Sorting;
 
 public class AddToCartTest extends DriverSetup {
     public final int FIRST_ITEM = 0;
-    public final int LOW_PRICE = 10;
+    public final int LOW_PRICE = 20;
     public final int HIGH_PRICE = 150;
 
     @Test
@@ -20,8 +20,8 @@ public class AddToCartTest extends DriverSetup {
         String actualTitle = driver.getTitle();
         String expectedTitle = "Practice Software Testing";
         assertTrue(actualTitle.contains(expectedTitle), "Title mismatch.");
-        // homePage.setSlider(LOW_PRICE, HIGH_PRICE);
-        homePage.filterFor(Filtering.PLIERS);
+        homePage.setSlider(LOW_PRICE, HIGH_PRICE);
+        homePage.filterFor(Filtering.HAND_TOOLS);
         homePage.sortItems(Sorting.FROMLOW);
         // TODO: assert prices are sorted
 
@@ -34,14 +34,12 @@ public class AddToCartTest extends DriverSetup {
         // first item
         productDetailPage.getItemName();
         productDetailPage.clickAddToCartBtn();
-        productDetailPage.messageDisplayed();
-        productDetailPage.addRelatedItem();
+        productDetailPage.goToRelatedItem();
         // second item
         productDetailPage.getItemName();
         productDetailPage.changeAndGetQuantity(Quantity.INCREASE);
         productDetailPage.clickAddToCartBtn();
-        productDetailPage.messageDisplayed();
-        productDetailPage.addRelatedItem();
+        productDetailPage.goToRelatedItem();
         // third item
         productDetailPage.getItemName();
         productDetailPage.changeAndGetQuantity(Quantity.DECREASE);
@@ -51,9 +49,9 @@ public class AddToCartTest extends DriverSetup {
         productDetailPage.clickGoToCartBtn();
         assertTrue(checkoutPage.isDisplayed(), "Checkout page not displayed.");
         
-        checkoutPage.getItemsList();
         checkoutPage.getQuantities();
         checkoutPage.getTotalToPay();
+        checkoutPage.getItemsList();
         checkoutPage.clickProceedBtn();
     }
 }

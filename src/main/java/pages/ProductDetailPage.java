@@ -45,10 +45,9 @@ public class ProductDetailPage {
         addToCartBtn.click();
     }
 
-    public boolean messageDisplayed() {
+    public void messageDisplayed() {
         // wait.until(ExpectedConditions.visibilityOfElementLocated(messageBy));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(messageBy));
-        return true;
     }
 
     public void clickGoToCartBtn() {
@@ -57,10 +56,13 @@ public class ProductDetailPage {
         goToCartBtn.click();
     }
 
-    public void addRelatedItem() {
+    public void goToRelatedItem() {
         String currentItemName = wait.until(ExpectedConditions.visibilityOfElementLocated(nameBy)).getText();
         wait.until(ExpectedConditions.visibilityOfElementLocated(relatedItemFirstBy)).click();
         wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(nameBy, currentItemName)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(nameBy));
+        // String nextItemName = wait.until(ExpectedConditions.visibilityOfElementLocated(nameBy)).getText();
+        // System.out.println(">>>> Moved from: " + currentItemName + " to " + nextItemName);
     }
 
     public String getItemName() {
