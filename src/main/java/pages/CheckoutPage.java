@@ -17,6 +17,10 @@ public class CheckoutPage {
     private By removeItemBy = By.xpath("//*[@class='btn btn-danger']");
     private By proceedBy = By.xpath("//button[contains(@data-test, 'proceed-1')]");
     private By itemNameListBy = By.xpath("//span[contains(@data-test, 'product-title')]");
+    private By quantityListBy = By.xpath("//input[contains(@data-test, 'product-quantity')]"); //TODO: retrieve value
+    private By priceListBy = By.xpath("//span[contains(@data-test, 'product-price')]");
+    private By subtotalListBy = By.xpath("//span[contains(@data-test, 'line-price')]");
+    private By totalPayBy = By.xpath("//td[contains(@data-test, 'cart-total')]");
 
     public CheckoutPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -41,7 +45,20 @@ public class CheckoutPage {
         for (int i = 0; i < elements.size(); i++) {
             items.add(elements.get(i).getText());
         }
-
+        System.out.println(">>>>> Items:" + items);
         return items;
+    }
+
+    public void getQuantities() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(quantityListBy));
+        List<WebElement> elements = driver.findElements(quantityListBy);
+        for (int i = 0; i < elements.size(); i++) {
+            System.out.println(">>>>> Quantities:" + elements.get(i).getDomProperty("value"));
+        }
+    }
+
+    public void getTotalToPay() {
+        String totalToPay = wait.until(ExpectedConditions.visibilityOfElementLocated(totalPayBy)).getText();
+        System.out.println(">>>>> Total from Cart page: " + totalToPay);
     }
 }
