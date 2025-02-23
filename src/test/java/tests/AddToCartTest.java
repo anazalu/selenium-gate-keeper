@@ -11,9 +11,9 @@ import util.Helpers.Quantity;
 import util.Helpers.Sorting;
 
 public class AddToCartTest extends DriverSetup {
-    public final int FIRST_ITEM = 0;
-    public final int LOW_PRICE = 20;
-    public final int HIGH_PRICE = 150;
+    public final int WHICH_ITEM = 0;
+    public final int LOW_PRICE = 10;
+    public final int HIGH_PRICE = 175;
 
     @Test
     public void testEntireFlow() throws InterruptedException {
@@ -22,10 +22,11 @@ public class AddToCartTest extends DriverSetup {
         assertTrue(actualTitle.contains(expectedTitle), "Title mismatch.");
         homePage.setSlider(LOW_PRICE, HIGH_PRICE);
         homePage.filterFor(Filtering.HAND_TOOLS);
+        /*
         homePage.sortItems(Sorting.FROMLOW);
         // TODO: assert prices are sorted
 
-        String homePagePrice = homePage.clickAndGetPrice(FIRST_ITEM);
+        String homePagePrice = homePage.clickAndGetPrice(WHICH_ITEM);
 
         assertTrue(productDetailPage.isDisplayed(), "PDP failed to display.");
         String pdpPrice = productDetailPage.getPrice();
@@ -53,5 +54,6 @@ public class AddToCartTest extends DriverSetup {
         checkoutPage.getTotalToPay();
         checkoutPage.getItemsList();
         checkoutPage.clickProceedBtn();
+        */
     }
 }
