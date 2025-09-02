@@ -30,5 +30,5 @@ public class LoginPage {
     public void clickRegisterBtn() {
         WebElement registerBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(registerBtnBy));
         registerBtn.click();
-    }    
+    }
 }
