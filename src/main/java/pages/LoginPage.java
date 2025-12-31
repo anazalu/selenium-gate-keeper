@@ -15,6 +15,8 @@ public class LoginPage {
     @FindBy
     // private By registerBtnBy = By.cssSelector("a.action.create.primary");
     private By registerBtnBy = By.xpath("//a[@aria-label='Register your account']");
+    private final By submitButtonBy = By.className("btnSubmit");
+    private By emailErrorBy = By.id("email-error");
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -30,5 +32,15 @@ public class LoginPage {
     public void clickRegisterBtn() {
         WebElement registerBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(registerBtnBy));
         registerBtn.click();
-    }    
+    }
+
+    public void clickSubmitBtn() {
+        WebElement submitBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(submitButtonBy));
+        submitBtn.click();
+    }
+
+    public String getEmailError() {
+        WebElement emailError = wait.until(ExpectedConditions.visibilityOfElementLocated(emailErrorBy));
+        return emailError.getText();
+    }
 }
