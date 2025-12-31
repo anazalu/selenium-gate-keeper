@@ -22,7 +22,7 @@ public class AddToCartTest extends DriverSetup {
         assertTrue(actualTitle.contains(expectedTitle), "Title mismatch.");
         homePage.setSlider(LOW_PRICE, HIGH_PRICE);
         homePage.filterFor(Filtering.HAND_TOOLS);
-        /*
+
         homePage.sortItems(Sorting.FROMLOW);
         // TODO: assert prices are sorted
 
@@ -54,6 +54,6 @@ public class AddToCartTest extends DriverSetup {
         checkoutPage.getTotalToPay();
         checkoutPage.getItemsList();
         checkoutPage.clickProceedBtn();
-        */
+
     }
 }
